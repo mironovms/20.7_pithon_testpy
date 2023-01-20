@@ -23,4 +23,5 @@ def test_add_pet():
 
     header = {'accept': 'application/json', 'Content-Type' : 'application/json'}
     res = requests.post(url='https://petstore.swagger.io/v2/pet', data=json.dumps(input_pet), headers=header)
-    print(res)
+
+    print('\n', res.text)
