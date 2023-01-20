@@ -3,10 +3,10 @@ import json
 
 def test_add_pet():
     input_pet = {
-        "id": 0,
+        "id": 228,
         "category": {
             "id": 224,
-            "name": "Dobik"
+            "name": "Robik"
         },
         "name": "doggie",
         "photoUrls": [
@@ -22,6 +22,14 @@ def test_add_pet():
     }
 
     header = {'accept': 'application/json', 'Content-Type' : 'application/json'}
-    res = requests.post(url='https://petstore.swagger.io/v2/pet', data=json.dumps(input_pet), headers=header)
+    res_post = requests.post(url='https://petstore.swagger.io/v2/pet', data=json.dumps(input_pet), headers=header)
 
-    print('\n', res.text)
+    print('\n', res_post.text)
+    res_json = json.loads(res_post.text)
+    assert input_pet == res_json
+
+    res_get = requests.get(url = f'https://petstore.swagger.io/v2/pet/{input_pet["id"]}')
+    assert res_get.status_code == 200
+    assert json.loads(res_post.text) == input_pet
+
+
