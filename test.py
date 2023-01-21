@@ -59,4 +59,31 @@ def test_sold_list():
     assert input_pet in list(json.loads(res_get.text))
     print(list(json.loads(res_get.text)))
 
+def test_available_list():
+    input_pet = {
+        "id": 229,
+        "category": {
+            "id": 225,
+            "name": "Xobot"
+        },
+        "name": "doggie",
+        "photoUrls": [
+            "string"
+        ],
+        "tags": [
+            {
+                "id": 54,
+                "name": "dog"
+            }
+        ],
+        "status": "available"
+    }
+    header = {'accept': 'application/json', 'Content-Type': 'application/json'}
+    requests.post(url='https://petstore.swagger.io/v2/pet', data=json.dumps(input_pet), headers=header)
+
+    res_get = requests.get(url=f'https://petstore.swagger.io/v2/pet/findByStatus', params={'status' : 'available'})
+    assert res_get.status_code == 200
+    assert input_pet in list(json.loads(res_get.text))
+    print(list(json.loads(res_get.text)))
+
 
