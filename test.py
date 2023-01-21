@@ -56,7 +56,7 @@ def test_sold_list():
 
     res_get = requests.get(url=f'https://petstore.swagger.io/v2/pet/findByStatus', params={'status' : 'sold'})
     assert res_get.status_code == 200
-    assert input_pet in list(json.loads(res_post.text))
-    print(list(json.loads(res_post.text)))
+    assert input_pet in list(json.loads(res_get.text))
+    print(list(json.loads(res_get.text)))
 
 
