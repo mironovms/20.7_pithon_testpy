@@ -15,7 +15,7 @@ def test_add_pet():
         },
         "name": fake.name(),
         "photoUrls": [
-            "string"
+            "string "
         ],
         "tags": [
             {
@@ -36,3 +36,31 @@ def test_add_pet():
     assert res_get.status_code == 200
     assert res_get.json() == res_post.json() == input_pet
 
+    def api_delete():
+        fake = Faker()
+        pet_id = random.randint(1, 99999999)
+        del_pet = {
+            "id": pet_id,
+            "category": {
+                "id": random.randint(1, 99999999),
+                "name": fake.name()
+            },
+            "name": fake.name(),
+            "photoUrls": [
+                "string "
+            ],
+            "tags": [
+                {
+                    "id": 7,
+                    "name": fake.name()
+                }
+            ],
+            "status": "available"
+        }
+
+        header = {'accept': 'application/json', 'Content-Type': 'application/json'}
+
+        res_del = requests.delete(
+            url=f'https://petstore.swagger.io/v2/pet/{pet_id}', headers= {'accept': 'application/json'}
+        )
+        assert res_get.status_code == 200
