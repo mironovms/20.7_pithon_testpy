@@ -46,5 +46,6 @@ def test_add_pet():
 
     res_get = requests.get(url=f'https://petstore.swagger.io/v2/pet/{pet_id}', headers={'accept': 'application/json'})
     assert res_get.status_code == 404
+    assert res_get.json()["message"] == "Pet not found"
 
 
